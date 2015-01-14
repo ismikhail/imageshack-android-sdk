@@ -27,3 +27,6 @@ proguard/
 *.iml
 *.ipr
 *.iws
+
+# OSX files
+.DS_Store
