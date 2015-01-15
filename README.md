@@ -27,14 +27,9 @@ JavaDoc can be found in ImageShackSDK/doc/index.html
 6. Make sure that Demo and ImageShackSDK are checked and hit Finish.
 	![ScreenShot](http://imageshack.com/a/img802/8397/l5a5.png)
 
-There is one more thing needed to run the Demo app.
+You need to request a developer key from ImageShack.
 
 1. Go to https://imageshack.com/contact/api to request your developer key. The key is required to instantiate ImageShackClient object. 
-2. Open Demo/src/com/imageshack/demo/LoginActivity.java file and enter your key on line 42
-```java
-private final String API_KEY = null;
-```
-Now you are ready to launch Demo app.
 
 ### Example: upload image to ImageShack
 This is how you can upload an image to ImageShack.
@@ -56,7 +51,7 @@ isClient.uploadImage(path, tags, album, title, commentsDisabled,
 	isPublic, new ResponseListener() {
 
 		@Override
-		public void onResponse(ImageShackModel model) {
+		public void onResponse(AbstractModel model) {
 
 			UploadModel upload = (UploadModel) model;
 			// Visualize results...
@@ -78,7 +73,7 @@ ImageShackClient isClient = new ImageShackClient(API_KEY, authToken);
 isClient.getImages(Integer.valueOf(3), null, new ResponseListener() {
 
 			@Override
-			public void onResponse(ImageShackModel model) {
+			public void onResponse(AbstractModel model) {
 
 				ImagesModel images = (ImagesModel) model;
 				// Visualize images...
@@ -89,7 +84,7 @@ isClient.getImages(Integer.valueOf(3), null, new ResponseListener() {
 ```
 
 ### Fetching images of different sizes.
-We have built a dynamic image resizer so you can be as creative as you want when it comes to UI. The `ImageModel` has a method `imagizer()` with various parameter sets. For example:
+ImageShack allows you to dynamically resize images. The `ImageModel` has a method `imagizer()` with various parameter sets. For example:
 ```java
 // image is of type ImageModel
 // public String imagizer(int width, int height, boolean autoCrop)
@@ -97,7 +92,7 @@ String url = image.imagizer(200, 200, true);
 ```
 The above code will generate a URL that returns an image with 200x200 resolution. The `autoCrop` parameter tells the imagizer that you want an image of exact `width` and `height`. If `autoCrop == false` image will fit into the box defined by `width` and `height` while preserving the original dimensions. 
 
-You can also apply one of 20 unique filters to your images or convert to grayscale using imagizer.
+You can also apply one of 20 unique filters to your images or convert to grayscale using the Imagizer.
 ```java
 // public String imagizer(int width, int height, boolean autoCrop, int quality, int filter)
 String url = image.imagizer(200, 200, true, 90, 21);
